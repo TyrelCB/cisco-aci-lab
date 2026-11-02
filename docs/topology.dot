@@ -1,0 +1,30 @@
+# ACI Simulator fabric (reservation ACI Simulator-20261031T22471318)
+# render: dot -Tpng topology.dot -o topology.png
+graph fabric {
+    rankdir=TB
+    splines=true
+    nodesep=0.8
+    ranksep=0.9
+    bgcolor="white"
+    fontname="Helvetica"
+    node [fontname="Helvetica", fontsize=13, margin="0.15,0.08"]
+    edge [color="#9aa5b1", penwidth=1.6]
+
+    apic [shape=diamond, style=filled, fillcolor="#1a73c0", fontcolor=white,
+          label="apic1\nnode 1 · TEP 10.0.0.1"]
+    spine [shape=box, style="rounded,filled", fillcolor="#e8edf2", color="#5b6b7b",
+           label="Spine-201\nnode 201 · TEP 10.0.0.65"]
+    leaf1 [shape=box, style="rounded,filled", fillcolor="#e8edf2", color="#5b6b7b",
+           label="Leaf-101\nnode 101 · TEP 10.0.0.64\neth1/35 → L3Out"]
+    leaf2 [shape=box, style="rounded,filled", fillcolor="#e8edf2", color="#5b6b7b",
+           label="Leaf-102\nnode 102 · TEP 10.0.0.66"]
+
+    apic -- spine [label="in-band", fontsize=10, fontcolor="#5b6b7b", labeldistance=1.6]
+    spine -- leaf1
+    spine -- leaf2
+
+    devbox [shape=box, style="rounded,filled,dashed", fillcolor="#fff7e6", color="#c8a415",
+            label="devbox 10.10.20.50\nCentOS 7 · cobra/ansible", fontsize=11]
+    apic -- devbox [style=dotted, color="#c8a415", label="mgmt 10.10.20.0/24",
+                    fontsize=10, fontcolor="#8a740f", labeldistance=2.2]
+}

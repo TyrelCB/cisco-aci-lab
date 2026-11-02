@@ -3,6 +3,10 @@
 Reservation: `ACI Simulator-20261031T22471318` (Stack Automation by Qualio, ~48h window, ends Nov 2 ~15:00 UTC).
 Fabric: 1 APIC (apic1, node 1, TEP 10.0.0.1) + 1 spine (201, 10.0.0.65) + 2 leaves (101 10.0.0.64, 102 10.0.0.66), APIC 6.1(4h). AnyConnect: `devnetsandbox-usw1-reservation.cisco.com:20133`, user `tyrelcb`, per-reservation password. Devbox: `developer@10.10.20.50` (CentOS 7).
 
+![ACI Simulator fabric topology](docs/topology.png)
+
+Topology source: [`docs/topology.dot`](docs/topology.dot) — re-render with `dot -Tpng docs/topology.dot -o docs/topology.png` (editable SVG also at `docs/topology.svg`).
+
 ## Contents
 
 | File | What's in it |
@@ -15,6 +19,7 @@ Fabric: 1 APIC (apic1, node 1, TEP 10.0.0.1) + 1 spine (201, 10.0.0.65) + 2 leav
 | `tour/aci_phase5.yml` | Phase 5 Ansible playbook (tenant `Tour3`, 12/12 green, idempotent) |
 | `tour/terraform/` | Phase 6 Terraform (tenant `Tour4`) incl. live `terraform.tfstate` |
 | `tour/raw/` | Raw class schemas, config/fault/health tree dumps |
+| `docs/topology.dot` | Fabric topology diagram source (renders `topology.png`/`.svg`, shown above) |
 
 ## Hard-won rules of engagement
 
