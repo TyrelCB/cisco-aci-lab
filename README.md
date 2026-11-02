@@ -37,3 +37,63 @@ Topology source: [`docs/topology.dot`](docs/topology.dot) — re-render with `do
 6. Static EPG paths: child RN is `rspathAtt-` (not `rspathL3OutAtt-`); reliable delete is a POST with `"status":"deleted"`. `infraNodeBlk` ranges are literally `from_`/`to_` on the wire.
 7. The simulator is strong for policy/fabric model, weak for observability: SPAN, vns service graph, and contract counters are stub classes or missing; endpoints are synthetic (`cep-42:*`).
 8. `cisco.aci` pins to **2.3.0** on the ansible-2.9 devbox (6.x deps unresolvable); `ciscodevnet/aci` resolves to **2.20.0** (`insecure = true`, everything is `*_dn`, enum values differ from MO wire values).
+
+## Acronym glossary
+
+**Fabric & roles**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| ACI | Application Centric Infrastructure | Cisco's SDN fabric — the subject of the tour |
+| APIC | Application Policy Infrastructure Controller | The brain (node 1, 10.0.0.1); every API call lands here |
+| TEP | Tunnel Endpoint | Node's inner overlay IP (leaf-101 = 10.0.0.64); VXLAN encapsulation lives here |
+| PC | Port-Channel | Bonded uplinks (leaf↔spine); also the seed-content fault culprit |
+| Pod | (not an acronym; seen as `pod-1`) | Fabric failure domain; the sim has one |
+
+**Tenant policy model**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| TN | Tenant | Top isolation container — `Tour`/`Tour2`/`Tour3`/`Tour4`, seeded `Heroes`/`SnV` |
+| VRF | Virtual Routing and Forwarding | `fvCtx` — tenant routing instance |
+| BD | Bridge Domain | `fvBD` — L2 boundary, carries L3 gateway/subnets |
+| EPG | Endpoint Group | `fvAEPg` — policy grouping of endpoints; what contracts bind to |
+| AP | Application Profile | `fvAp` — container for EPGs |
+| L3Out | Layer 3 Out | External connectivity (`l3extInstP` etc.); `Tour_l3out` |
+
+**Fabric access & infra (the F0467 chain)**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| AAEP (a.k.a. AEP) | Attachable Access Entity Profile | Binds domains to port groups; the missing link in our F0467 hunt |
+| VLAN | Virtual LAN (802.1Q) | Encapsulation on static paths (`vlan-999`) |
+| VXLAN | Virtual Extensible LAN | The real fabric encapsulation under the covers |
+| LIF | Logical Interface | `lifp` — L3Out routed interface (eth1/35 on leaf-101) |
+
+**Routing & day-2**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| BGP | Border Gateway Protocol | L3Out peering (`bgpPeerP`, per-peer AS via `bgpAsP`/`bgpLocalAsnP`) |
+| ASN | Autonomous System Number | The local/peer numbers in that BGP config (65000/65001) |
+| RRNP | Route Reflector Node Profile | `bgpRRNP` — seen in the BGP class tree |
+| TCA | Threshold Crossing Alarm | Half the fault census: CRC/temperature alarms on synthetic stats |
+| SPAN | Switched Port ANalyzer (mirroring) | Stubbed on the sim — can't practice it |
+
+**API / object model wire format**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| REST | REpresentational State Transfer | The northbound style (`POST api/mo/...json`) |
+| MO | Managed Object | Every ACI config object |
+| DN | Distinguished Name | Full path to an MO (`uni/tn-Tour/ap-...`) |
+| RN | Relative Name | One DN segment (`ap-`, `epg-`, the `rspathAtt-` gotcha) |
+| cobra | (not an acronym — the Go SDK's object-builder style) | `acicobra` 4.2-3h, Phase 2's writing path |
+| SDK | Software Development Kit | Category cobra belongs to |
+
+**Access plumbing**
+
+| Acronym | Stands for | In this lab |
+|---|---|---|
+| VPN | Virtual Private Network | AnyConnect/openconnect tunnel into 10.10.20.0/24 |
+| L4-L7 | Layers 4–7 (OSI) | Service-graph tier — stub classes on the sim |
