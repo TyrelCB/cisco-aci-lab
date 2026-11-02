@@ -1,0 +1,129 @@
+- name: ACI tour phase 5 - build Tour3 with cisco.aci modules
+  hosts: apic
+  connection: local
+  gather_facts: false
+  tasks:
+  - name: aci_tenant
+    aci_tenant:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+  - name: aci_vrf
+    aci_vrf:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      vrf: Tour_vrf
+  - name: aci_contract
+    aci_contract:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      contract: allow-web
+      scope: context
+  - name: aci_filter
+    aci_filter:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      filter: web_filt
+  - name: aci_filter_entry
+    aci_filter_entry:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      filter: web_filt
+      entry: http_only
+      ether_type: ip
+      ip_protocol: tcp
+      dst_port: '80'
+  - name: aci_contract_subject
+    aci_contract_subject:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      contract: allow-web
+      subject: web_in
+  - name: aci_contract_subject_to_filter
+    aci_contract_subject_to_filter:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      contract: allow-web
+      subject: web_in
+      filter: web_filt
+  - name: aci_bd
+    aci_bd:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      bd: Tour_bd
+      vrf: Tour_vrf
+  - name: aci_bd_subnet
+    aci_bd_subnet:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      bd: Tour_bd
+      gateway: 10.99.3.1
+      mask: 24
+      subnet_name: ansible_sub
+  - name: aci_ap
+    aci_ap:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      app_profile: Tour_ap
+  - name: aci_epg
+    aci_epg:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      ap: Tour_ap
+      epg: web_epg
+      bd: Tour_bd
+  - name: aci_epg_to_contract
+    aci_epg_to_contract:
+      host: 10.10.20.14
+      username: admin
+      password: C1sco12345
+      validate_certs: false
+      use_ssl: true
+      tenant: Tour3
+      ap: Tour_ap
+      epg: web_epg
+      contract: allow-web
+      contract_type: provider
