@@ -1,6 +1,6 @@
 # ACI Simulator Field Tour — Five Phases on Cisco's On-Demand ACI Sandbox
 
-Reservation: `ACI Simulator-20261031T22471318` (Stack Automation by Qualio, on-demand, ~48h window).
+Reservation: `ACI Simulator-20261031T22471318` (Stack Automation by Quali, on-demand, ~48h window).
 Fabric: 1 APIC (node 1), 1 spine (201), 2 leaves (101, 102). Access recipe in `aci-simulator.md`.
 All work driven over AnyConnect VPN from a remote client + the lab devbox (CentOS 7, `developer@10.10.20.50`).
 

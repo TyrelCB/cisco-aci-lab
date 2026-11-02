@@ -1,6 +1,12 @@
 # Cisco ACI Simulator — On-Demand Lab Field Notes
 
-Reservation: `ACI Simulator-20261031T22471318` (Stack Automation by Qualio, ~48h window, ends Nov 2 ~15:00 UTC).
+> **Run this yourself:** free with a Cisco ID. The sandbox catalog lives at
+> **[stackautomation.cisco.com/DevNet](https://stackautomation.cisco.com/DevNet)**
+> (DevNet Sandboxes, powered by Cisco Stack Automation by Quali). Reserve **"ACI Simulator"**
+> for a private fabric for up to ~2 days over VPN.
+> Catalog entry: [developer.cisco.com/sandbox](https://developer.cisco.com/sandbox).
+
+Reservation: `ACI Simulator-20261031T22471318` (Stack Automation by Quali, ~48h window, ends Nov 2 ~15:00 UTC).
 Fabric: 1 APIC (apic1, node 1, TEP 10.0.0.1) + 1 spine (201, 10.0.0.65) + 2 leaves (101 10.0.0.64, 102 10.0.0.66), APIC 6.1(4h). AnyConnect: `devnetsandbox-usw1-reservation.cisco.com:20133`, user `tyrelcb`, per-reservation password. Devbox: `developer@10.10.20.50` (CentOS 7).
 
 ![ACI Simulator fabric topology](docs/topology.png)
@@ -11,7 +17,7 @@ Topology source: [`docs/topology.dot`](docs/topology.dot) — re-render with `do
 
 | File | What's in it |
 |---|---|
-| `aci-simulator.md` | Access recipe: openconnect VPN bring-up, HTTPS-only APIC REST auth, fabric inventory, devbox-ships-powered-off gotcha |
+| `aci-simulator.md` | Access recipe: openconnect VPN bring-up, HTTPS-only APIC REST auth, fabric inventory, devbox-ships-powered-off gotcha. Reserve your own at [stackautomation.cisco.com/DevNet](https://stackautomation.cisco.com/DevNet) |
 | `aci-tour.md` | Six-phase capability tour: seeded Heroes/SnV model, cobra vs REST, L3Out+BGP and the fabric-access (F0467) chain, faults/health census, Ansible (`cisco.aci` 2.3.0), Terraform (`ciscodevnet/aci` 2.20.0) |
 | `tour/apic.sh` | APIC REST helper (cookie jar, `g`/`p`), sourced by every other script |
 | `tour/phase2_cobra.py` | Phase 2 cobra-vs-REST capture (acicobra 4.2-3h on the devbox) |

@@ -1,4 +1,4 @@
-# ACI Simulator — on-demand reservation (Stack Automation by Qualio)
+# ACI Simulator — on-demand reservation (Stack Automation by Quali)
 
 Reservation: `ACI Simulator-20261031T22471318`, on-demand, ~2d runtime (started 2026-10-31 22:47 UTC).
 
